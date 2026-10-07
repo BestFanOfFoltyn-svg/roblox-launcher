@@ -1,0 +1,15 @@
+{
+  "name": "roblox-launcher",
+  "version": "1.0.0",
+  "description": "Clean desktop launcher for the official Roblox experience",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "build": "electron-builder --win --linux --mac"
+  },
+  "devDependencies": {
+    "electron": "^31.7.1",
+    "electron-builder": "^24.13.0"
+  }
+}

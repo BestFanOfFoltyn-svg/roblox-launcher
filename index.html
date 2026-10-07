@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self';" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roblox Launcher</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="brand-mark">R</div>
+          <div>
+            <div class="brand-name">Roblox Launcher</div>
+            <div class="brand-subtitle">Official gameplay entry point</div>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <section class="hero-card">
+          <div class="hero-copy">
+            <p class="eyebrow">Official access</p>
+            <h1>Launch Roblox cleanly.</h1>
+            <p class="subtitle">
+              Minimal launcher. No ads. No custom controls. No fake client. Just a clean path to the real Roblox experience.
+            </p>
+          </div>
+
+          <div class="launch-panel">
+            <label for="gameUrl">Game URL</label>
+            <input
+              id="gameUrl"
+              type="url"
+              placeholder="https://www.roblox.com/games/..."
+              value="https://www.roblox.com/games/"
+            />
+
+            <button id="launchButton" type="button">Launch Roblox</button>
+
+            <div id="status" class="status" aria-live="polite">
+              Ready to open the official Roblox page.
+            </div>
+          </div>
+        </section>
+
+        <section class="info-grid">
+          <div class="info-card">
+            <h2>What this app does</h2>
+            <ul>
+              <li>Launches the official Roblox game URL</li>
+              <li>Uses the real Roblox web flow</li>
+              <li>Does not add blockers or overlays</li>
+              <li>Leaves keyboard and mouse behavior to Roblox itself</li>
+            </ul>
+          </div>
+
+          <div class="info-card">
+            <h2>Good for</h2>
+            <ul>
+              <li>Simple desktop launchers</li>
+              <li>Game portals</li>
+              <li>School or office kiosk-style setups where allowed</li>
+            </ul>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>
