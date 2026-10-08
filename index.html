@@ -1,74 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self';" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roblox Launcher</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="app-shell">
-      <header class="topbar">
-        <div class="brand-wrap">
-          <div class="brand-mark">R</div>
-          <div>
-            <div class="brand-name">Roblox Launcher</div>
-            <div class="brand-subtitle">Official gameplay entry point</div>
-          </div>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin: 30px 0;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .launch-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .launch-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .launch-btn:active {
+            transform: translateY(0);
+        }
+
+        .quick-games {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .game-btn {
+            background: #3498db;
+            color: white;
+            padding: 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .game-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .status.success {
+            display: block;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            display: block;
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status.loading {
+            display: block;
+            background: #cfe2ff;
+            color: #084298;
+            border: 1px solid #b6d4fe;
+        }
+
+        .info-box {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .info-box strong {
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .quick-games {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🎮</div>
+            <h1>Roblox Launcher</h1>
+            <p class="subtitle">Play Roblox games instantly</p>
         </div>
-      </header>
 
-      <main class="content">
-        <section class="hero-card">
-          <div class="hero-copy">
-            <p class="eyebrow">Official access</p>
-            <h1>Launch Roblox cleanly.</h1>
-            <p class="subtitle">
-              Minimal launcher. No ads. No custom controls. No fake client. Just a clean path to the real Roblox experience.
-            </p>
-          </div>
+        <div class="input-group">
+            <label for="gameUrl">Enter Game URL or Game ID:</label>
+            <input 
+                type="text" 
+                id="gameUrl" 
+                placeholder="e.g., https://www.roblox.com/games/123456 or just 123456"
+            >
+        </div>
 
-          <div class="launch-panel">
-            <label for="gameUrl">Game URL</label>
-            <input
-              id="gameUrl"
-              type="url"
-              placeholder="https://www.roblox.com/games/..."
-              value="https://www.roblox.com/games/"
-            />
+        <div class="button-group">
+            <button class="launch-btn" onclick="launchGame()">🚀 Launch Game</button>
+        </div>
 
-            <button id="launchButton" type="button">Launch Roblox</button>
+        <div style="text-align: center; margin: 20px 0; color: #999;">— OR —</div>
 
-            <div id="status" class="status" aria-live="polite">
-              Ready to open the official Roblox page.
+        <div>
+            <p style="color: #666; font-size: 14px; margin-bottom: 10px; font-weight: bold;">Quick Launch Popular Games:</p>
+            <div class="quick-games">
+                <button class="game-btn" onclick="launchGameById('6872274938')">Rivals</button>
+                <button class="game-btn" onclick="launchGameById('2753915549')">Adopt Me!</button>
+                <button class="game-btn" onclick="launchGameById('2041312676')">Murder Mystery 2</button>
+                <button class="game-btn" onclick="launchGameById('13822889')">Welcome to Bloxburg</button>
+                <button class="game-btn" onclick="launchGameById('1818')">Crossroads</button>
+                <button class="game-btn" onclick="launchGameById('24129659')">Natural Disaster Survival</button>
             </div>
-          </div>
-        </section>
+        </div>
 
-        <section class="info-grid">
-          <div class="info-card">
-            <h2>What this app does</h2>
-            <ul>
-              <li>Launches the official Roblox game URL</li>
-              <li>Uses the real Roblox web flow</li>
-              <li>Does not add blockers or overlays</li>
-              <li>Leaves keyboard and mouse behavior to Roblox itself</li>
-            </ul>
-          </div>
+        <div id="status" class="status"></div>
 
-          <div class="info-card">
-            <h2>Good for</h2>
-            <ul>
-              <li>Simple desktop launchers</li>
-              <li>Game portals</li>
-              <li>School or office kiosk-style setups where allowed</li>
-            </ul>
-          </div>
-        </section>
-      </main>
+        <div class="info-box">
+            <strong>ℹ️ How to use:</strong><br>
+            • Paste a Roblox game URL or enter a game ID<br>
+            • Click "Launch Game" or pick a quick game<br>
+            • Game opens in a new tab with real Roblox controls<br>
+            • Keyboard, mouse, and all normal Roblox features work<br>
+            • No ads. No fake client. Real Roblox experience.
+        </div>
     </div>
 
-    <script src="renderer.js"></script>
-  </body>
+    <script>
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            setTimeout(() => {
+                if (type === 'success') {
+                    status.style.display = 'none';
+                }
+            }, 5000);
+        }
+
+        function launchGame() {
+            const input = document.getElementById('gameUrl').value.trim();
+            
+            if (!input) {
+                showStatus('❌ Please enter a game URL or game ID', 'error');
+                return;
+            }
+
+            let gameUrl;
+
+            if (/^\d+$/.test(input)) {
+                gameUrl = `https://www.roblox.com/games/${input}`;
+            } else if (input.startsWith('http://') || input.startsWith('https://')) {
+                gameUrl = input;
+            } else {
+                gameUrl = `https://www.roblox.com/games/${input}`;
+            }
+
+            showStatus('🔄 Opening game... (this may take a moment)', 'loading');
+            
+            window.open(gameUrl, '_blank');
+            
+            setTimeout(() => {
+                showStatus('✅ Game opened! Check your new tab.', 'success');
+            }, 500);
+        }
+
+        function launchGameById(gameId) {
+            document.getElementById('gameUrl').value = gameId;
+            launchGame();
+        }
+
+        document.getElementById('gameUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                launchGame();
+            }
+        });
+
+        window.addEventListener('load', () => {
+            document.getElementById('gameUrl').focus();
+        });
+    </script>
+</body>
 </html>
